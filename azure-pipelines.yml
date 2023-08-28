@@ -15,10 +15,11 @@ steps:
     versionSpec: '18.x'
   displayName: 'Install Node.js'
 
-- script: |
-    npm install
-    npm run ng build -- prod
-  displayName: 'npm install and build'
+- script: npm install
+  displayName: 'npm install'
+
+- script: npm run ng build -- prod
+  displayName: 'Build'
 
 - task: PublishBuildArtifacts@1
   inputs:
