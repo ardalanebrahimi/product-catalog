@@ -17,12 +17,8 @@ steps:
 
 - script: |
     npm install
-    npm run build
+    npm run ng build -- prod
   displayName: 'npm install and build'
-
-
-- script: npm run ng build -- prod 
-  displayName: 'Build'
 
 - task: PublishBuildArtifacts@1
   inputs:
