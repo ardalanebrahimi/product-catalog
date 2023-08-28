@@ -1,0 +1,34 @@
+<h2 class="page-title">{{ isEditing ? 'Edit' : 'Create' }} Product</h2>
+<form class="product-form">
+  <div class="form-group">
+    <label for="productName">Name:</label>
+    <input type="text" [(ngModel)]="product.name" name="name" id="productName" required />
+  </div>
+  <div class="form-group">
+    <label for="productPrice">Price:</label>
+    <input type="number" [(ngModel)]="product.price" name="price" id="productPrice" required />
+  </div>
+  <div class="form-group">
+    <label for="productImage">Images:</label>
+    <input type="file" (change)="onImagesSelected($event)" accept=".jpg,.png,.jpeg" id="productImage" multiple />
+    <div class="image-previews-container">
+      <!-- Show image previews for existing images in edit mode -->
+      <div *ngIf="isEditing">
+        <div *ngFor="let imageUrl of product.images; let i = index">
+          <img [src]="imageUrl" class="image-preview" [alt]="'Image ' + (i + 1)">
+          <button (click)="deleteImage(imageUrl)">Delete</button>
+        </div>
+      </div>
+      <!-- Show image previews for new images in create mode -->
+      <div *ngFor="let imagePreview of imagePreviews; let i = index">
+        <img [src]="imagePreview.imageAsDataURL" class="image-preview" [alt]="'Preview ' + (i + 1)"/>
+        <button (click)="deleteNewImage(imagePreview)">Delete</button>
+      </div>
+    </div>
+  </div>  
+  <div class="form-group">
+    <label for="productDescription">Description:</label>
+    <textarea [(ngModel)]="product.description" name="description" id="productDescription" rows="4" required></textarea>
+  </div>
+  <button (click)="saveProduct()" type="submit" class="submit-button">{{ isEditing ? 'Save' : 'Create' }}</button>
+</form>

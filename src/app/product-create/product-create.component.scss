@@ -1,0 +1,90 @@
+/* create-product.component.css */
+.page-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .product-form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  input[type="file"] {
+    padding: 0;
+    font-size: inherit;
+    border: none;
+  }
+  
+  .submit-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Image Previews */
+  .image-preview {
+    width: 100%;
+    max-width: 300px; /* Adjust the maximum width as needed */
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    margin-bottom: 10px;
+  }
+
+/* Image Previews Container */
+.image-previews-container {
+    display: flex; /* Use flexbox to create a horizontal layout */
+    flex-wrap: wrap; /* Allow items to wrap to the next line when there's not enough space */
+    justify-content: flex-start; /* Align items to the start of the container */
+  }
+  
+  /* Individual Image Preview */
+  .image-preview {
+    width: 150px; /* Set a fixed width for each image preview */
+    height: 100px; /* Set a fixed height for each image preview */
+    object-fit: cover; /* Maintain the aspect ratio of the image and cover the container */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 5px; /* Add some margin between the image previews */
+  }  
+  
+  textarea {
+    width: 100%; /* Make the textarea take up the full width of the container */
+    height: 150px; /* Set the desired height for the textarea */
+    resize: vertical; /* Allow vertical resizing of the textarea */
+    padding: 8px; /* Add some padding inside the textarea */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
