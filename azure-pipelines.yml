@@ -18,11 +18,14 @@ steps:
 - script: npm install
   displayName: 'npm install'
 
-- script: npm run ng build -- prod
+- script: npm run ng build --prod
   displayName: 'Build'
 
-- task: PublishBuildArtifacts@1
+- task: ArchiveFiles@1
+  displayName: 'Archive files '
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+      rootFolder: '$(Build.SourcesDirectory)/dist/product-catalog'
+      includeRootFolder: false
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
