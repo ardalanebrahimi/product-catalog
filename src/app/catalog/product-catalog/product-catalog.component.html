@@ -1,26 +1,35 @@
+<pre>{{ "Test0" | json }}</pre>
 <div class="product-cards">
   <div *ngFor="let product of products" class="product-card">
     <div class="product-image">
       <!-- Display the product image if available, or show the empty placeholder -->
-      <img *ngIf="product.images && product.images.length > 0; else emptyImage" [src]="product.images[0]" alt="Product Image" />
+      <img
+        *ngIf="product.images && product.images.length > 0; else emptyImage"
+        [src]="product.images[0]"
+        alt="Product Image"
+      />
       <ng-template #emptyImage>
         <div class="empty-image-placeholder">
           <img src="path_to_empty_image.png" alt="Empty Placeholder" />
         </div>
       </ng-template>
     </div>
-    
+
     <div class="additional-images">
       <div *ngFor="let image of product.images?.slice(1)">
-        <img [src]="image" alt="Product Image"/>
+        <img [src]="image" alt="Product Image" />
       </div>
     </div>
-    
+
     <h3>{{ product.name }}</h3>
     <p>Price: {{ product.price | currency }}</p>
     <div class="action-buttons">
-      <button (click)="editProduct(product)">Edit</button> <!-- Add the edit button -->
+      <button (click)="editProduct(product)">Edit</button>
+      <!-- Add the edit button -->
       <button (click)="deleteProduct(product)">Delete</button>
     </div>
   </div>
 </div>
+<pre>{{ "Test1" | json }}</pre>
+<pre>{{ products | json }}</pre>
+<pre>{{ "Test2" | json }}</pre>
