@@ -16,6 +16,8 @@ header {
   background-color: #333;
   color: #fff;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
 
   background-image: url(/assets/images/bg.jpg);
   background-size: cover; /* Cover the entire area */
@@ -27,12 +29,20 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: auto;
 }
 
-.logo {
-  img {
-    height: 64px;
+.home-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  &-logo {
+    height: 32px;
     border-radius: 16px;
+  }
+  &-lable {
+    margin-left: 4px;
   }
 }
 
@@ -41,6 +51,9 @@ nav {
   list-style: none;
   padding: 0;
   margin: 0;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .horizontal-menu li {
@@ -59,15 +72,25 @@ nav {
 
 .hero-banner {
   text-align: center;
-  padding: 40px;
-}
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
 
-.hero-banner h1 {
-  font-size: 36px;
-}
+  h1 {
+    font-size: 36px;
+  }
 
-.hero-banner p {
-  font-size: 18px;
+  p {
+    font-size: 18px;
+  }
+  h1,
+  p {
+    background-color: #00000060;
+    width: fit-content;
+    align-self: center;
+    padding: 6px;
+    border-radius: 6px;
+  }
 }
 
 .cta-button {
