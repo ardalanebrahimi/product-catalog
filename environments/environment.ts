@@ -1,4 +1,4 @@
 export const environment = {
-    production: false,
-    apiUrl: 'https://ardiland-dev.azurewebsites.net/api/products'
-  };
+  production: false,
+  apiUrl: 'https://localhost:44375/api/products',
+};
