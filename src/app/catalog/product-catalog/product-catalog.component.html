@@ -21,7 +21,7 @@
     </div>
 
     <h3>{{ product.name }}</h3>
-    <p>Price: {{ product.price | currency }}</p>
+    <p>Price: {{ product.price | currency : "EUR" }}</p>
     <div class="action-buttons">
       <button (click)="editProduct(product)">Edit</button>
       <!-- Add the edit button -->
