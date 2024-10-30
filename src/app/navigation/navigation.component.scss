@@ -18,6 +18,9 @@ header {
   padding: 20px;
 
   background-image: url(/assets/images/bg.jpg);
+  background-size: cover; /* Cover the entire area */
+  background-position: center; /* Center the image */
+  height: 300px; /* Set a minimum height */
 }
 
 nav {
