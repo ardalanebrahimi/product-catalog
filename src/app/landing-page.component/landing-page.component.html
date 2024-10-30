@@ -1,138 +1,136 @@
-
 <main>
-    <section class="featured-products">
-      <h2>Featured Products</h2>
-      <div class="product-grid">
-        <!-- Display featured products in a grid -->
-        <!-- Example product card -->
-        <div class="product-card">
-          <img src="/assets/images/product1.png" alt="Product 1" />
-          <h3>Product 1</h3>
-          <p>$49.99</p>
-          <button class="buy-button">Buy Now</button>
-        </div>
-        <div class="product-card">
-          <img src="/assets/images/product2.jpg" alt="Product 2" />
-          <h3>Product 2</h3>
-          <p>$89.99</p>
-          <button class="buy-button">Buy Now</button>
-        </div>
-        <div class="product-card">
-          <img src="/assets/images/product3.png" alt="Product 3" />
-          <h3>Product 3</h3>
-          <p>$109.99</p>
-          <button class="buy-button">Buy Now</button>
-        </div>
-        <!-- More product cards go here -->
-      </div>
-    </section>
-  
-    <section class="product-categories">
-      <h2>Product Categories</h2>
-      <div class="category-grid">
-        <!-- Display product categories with images/icons -->
-        <!-- Example category card -->
-        <div class="category-card">
-          <img src="/assets/images/clothes.png" alt="Category 1" />
-          <h3>Category 1</h3>
-        </div>
-        <!-- More category cards go here -->
-      </div>
-    </section>
-  
-    <section class="testimonials">
-      <h2>Testimonials</h2>
-      <div class="testimonial-carousel">
-        <!-- Display customer testimonials with images/avatars -->
-        <!-- Example testimonial slide -->
-        <div class="testimonial-slide">
-          <img src="/assets/images/customer.png" alt="Customer 1" />
-          <p>"I love the products from Rekindlique! They are amazing and trendy."</p>
-          <h4>Customer 1</h4>
-        </div>
-        <!-- More testimonial slides go here -->
-      </div>
-    </section>
-  
-    <section class="newsletter">
-      <h2>Subscribe to Our Newsletter</h2>
-      <p>Stay up-to-date with the latest trends and offers</p>
-      <form class="newsletter-form">
-        <input type="email" placeholder="Your email address" />
-        <button class="subscribe-button">Subscribe</button>
-      </form>
-    </section>
-  
-    <section class="about-us">
-      <h2>About Us</h2>
-      <div class="about-us-cards">
-        <div class="about-us-card">
-          <h3>Who We Are</h3>
-          <p>
-            Rekindlique is a leading fashion boutique, offering the latest
-            clothing and accessories for both men and women. We take pride in
-            curating stylish and trendy collections to keep you in vogue.
-          </p>
-        </div>
-        <div class="about-us-card">
-          <h3>Our Mission</h3>
-          <p>
-            Our mission is to inspire and empower fashion enthusiasts by
-            providing high-quality products and exceptional customer service.
-            We aim to make your shopping experience enjoyable and effortless.
-          </p>
-        </div>
-        <div class="about-us-card">
-          <h3>Why Choose Us</h3>
-          <p>
-            With Rekindlique, you'll never compromise on style or quality. We
-            handpick each item to ensure you get the best value for your money.
-            Join us and be a part of the latest fashion trends.
-          </p>
-        </div>
-      </div>
-      <button class="learn-more-button">Learn More</button>
-    </section>
-  
-    <section class="cta">
-      <!-- Add a prominent call to action -->
-      <h2>Get 20% Off Your First Purchase</h2>
-      <p>Sign up for our newsletter and get 20% off your first order</p>
-      <button class="cta-button">Sign Up Now</button>
-    </section>
-  </main>
-  
-  <footer>
-    <!-- Add contact information, social media links, and other links -->
-    <div class="footer-columns">
-      <div class="footer-column">
-        <div class="footer-info">
-          <h3>Contact Us</h3>
-          <p>Email: info@fashionboutique.com</p>
-          <p>Phone: 123-456-7890</p>
-        </div>
-      </div>
-      <div class="footer-column">
-        <div class="footer-social">
-          <h3>Follow Us</h3>
-          <!-- Add social media icons/links -->
-          <div class="social-icons">
-            <a href="#"><img src="/assets/images/fb.png" alt="Facebook" /></a>
-            <a href="#"><img src="/assets/images/ig.png" alt="Instagram" /></a>
-            <a href="#"><img src="/assets/images/x.png" alt="Twitter" /></a>
+  <section class="featured-products">
+    <h2>Featured Products</h2>
+    <div class="product-grid">
+      <!-- Display featured products in a grid -->
+      <!-- Example product card -->
+      <div *ngFor="let product of products" class="product-card">
+        <!-- Display the product image if available, or show the empty placeholder -->
+        <img
+          *ngIf="product.images && product.images.length > 0; else emptyImage"
+          [src]="product.images[0]"
+          alt="Product Image"
+        />
+        <ng-template #emptyImage>
+          <div class="empty-image-placeholder">
+            <img src="path_to_empty_image.png" alt="Empty Placeholder" />
           </div>
-        </div>
+        </ng-template>
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.price | currency }}</p>
+        <button class="buy-button">Buy Now</button>
       </div>
-      <div class="footer-column">
-        <div class="footer-links">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Shop</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
+    </div>
+  </section>
+
+  <section class="product-categories">
+    <h2>Product Categories</h2>
+    <div class="category-grid">
+      <!-- Display product categories with images/icons -->
+      <!-- Example category card -->
+      <div class="category-card">
+        <img src="/assets/images/clothes.png" alt="Category 1" />
+        <h3>Category 1</h3>
+      </div>
+      <!-- More category cards go here -->
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <h2>Testimonials</h2>
+    <div class="testimonial-carousel">
+      <!-- Display customer testimonials with images/avatars -->
+      <!-- Example testimonial slide -->
+      <div class="testimonial-slide">
+        <img src="/assets/images/customer.png" alt="Customer 1" />
+        <p>
+          "I love the products from Rekindlique! They are amazing and trendy."
+        </p>
+        <h4>Customer 1</h4>
+      </div>
+      <!-- More testimonial slides go here -->
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <h2>Subscribe to Our Newsletter</h2>
+    <p>Stay up-to-date with the latest trends and offers</p>
+    <form class="newsletter-form">
+      <input type="email" placeholder="Your email address" />
+      <button class="subscribe-button">Subscribe</button>
+    </form>
+  </section>
+
+  <section class="about-us">
+    <h2>About Us</h2>
+    <div class="about-us-cards">
+      <div class="about-us-card">
+        <h3>Who We Are</h3>
+        <p>
+          Rekindlique is a leading fashion boutique, offering the latest
+          clothing and accessories for both men and women. We take pride in
+          curating stylish and trendy collections to keep you in vogue.
+        </p>
+      </div>
+      <div class="about-us-card">
+        <h3>Our Mission</h3>
+        <p>
+          Our mission is to inspire and empower fashion enthusiasts by providing
+          high-quality products and exceptional customer service. We aim to make
+          your shopping experience enjoyable and effortless.
+        </p>
+      </div>
+      <div class="about-us-card">
+        <h3>Why Choose Us</h3>
+        <p>
+          With Rekindlique, you'll never compromise on style or quality. We
+          handpick each item to ensure you get the best value for your money.
+          Join us and be a part of the latest fashion trends.
+        </p>
+      </div>
+    </div>
+    <button class="learn-more-button">Learn More</button>
+  </section>
+
+  <section class="cta">
+    <!-- Add a prominent call to action -->
+    <h2>Get 20% Off Your First Purchase</h2>
+    <p>Sign up for our newsletter and get 20% off your first order</p>
+    <button class="cta-button">Sign Up Now</button>
+  </section>
+</main>
+
+<footer>
+  <!-- Add contact information, social media links, and other links -->
+  <div class="footer-columns">
+    <div class="footer-column">
+      <div class="footer-info">
+        <h3>Contact Us</h3>
+        <p>Email: info@fashionboutique.com</p>
+        <p>Phone: 123-456-7890</p>
+      </div>
+    </div>
+    <div class="footer-column">
+      <div class="footer-social">
+        <h3>Follow Us</h3>
+        <!-- Add social media icons/links -->
+        <div class="social-icons">
+          <a href="#"><img src="/assets/images/fb.png" alt="Facebook" /></a>
+          <a href="#"><img src="/assets/images/ig.png" alt="Instagram" /></a>
+          <a href="#"><img src="/assets/images/x.png" alt="Twitter" /></a>
         </div>
       </div>
     </div>
-  </footer>
+    <div class="footer-column">
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
