@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProductCreateComponent } from './product-create/product-create.component';
 import { LandingPageComponent } from './landing-page.component/landing-page.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: 'home', component: LandingPageComponent },
@@ -10,9 +11,18 @@ const routes: Routes = [
     path: 'catalog',
     loadChildren: () =>
       import('./catalog/catalog.module').then((m) => m.CatalogModule),
+    canActivate: [AuthGuard],
   },
-  { path: 'create', component: ProductCreateComponent },
-  { path: 'edit/:id', component: ProductCreateComponent },
+  {
+    path: 'create',
+    component: ProductCreateComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'edit/:id',
+    component: ProductCreateComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
