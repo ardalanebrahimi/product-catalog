@@ -6,9 +6,11 @@ import { AppComponent } from './app.component';
 import { CatalogModule } from './catalog/catalog.module';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ProductCreateComponent } from './product-create/product-create.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { LandingPageComponent } from './landing-page.component/landing-page.component';
+import { AuthInterceptor } from './auth.interceptor';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -16,15 +18,18 @@ import { LandingPageComponent } from './landing-page.component/landing-page.comp
     NavigationComponent,
     LandingPageComponent,
     ProductCreateComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CatalogModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

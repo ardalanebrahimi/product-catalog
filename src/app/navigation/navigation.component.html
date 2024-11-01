@@ -3,7 +3,7 @@
     <h1>Welcome to RekindleBySarah</h1>
     <p>Handcrafted unique Fabric bag & accessories by Rekindle</p>
   </div>
-  <nav>
+  <nav *ngIf="userService.isAdmin()">
     <ul class="horizontal-menu">
       <li>
         <a class="home-menu" routerLink="/home">
@@ -17,6 +17,7 @@
       </li>
       <li><a routerLink="/catalog/product-catalog">Product Catalog</a></li>
       <li><a routerLink="/create">Create Product</a></li>
+      <li><a routerLink="/home" (click)="logout()">Logout</a></li>
     </ul>
   </nav>
 </header>
