@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { LandingPageComponent } from './landing-page.component/landing-page.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { LoginComponent } from './login/login.component';
+import { ProductViewComponent } from './product-view/product-view.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { LoginComponent } from './login/login.component';
     LandingPageComponent,
     ProductCreateComponent,
     LoginComponent,
+    ProductViewComponent,
   ],
   imports: [
     BrowserModule,

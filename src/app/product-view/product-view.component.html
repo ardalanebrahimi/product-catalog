@@ -1,0 +1,18 @@
+<div class="product-detail-container">
+  <h2 class="product-title">{{ product.name }}</h2>
+
+  <div class="product-image-gallery">
+    <div *ngFor="let imageUrl of product.images">
+      <img [src]="imageUrl" alt="{{ product.name }}" class="product-image" />
+    </div>
+  </div>
+
+  <div class="product-info">
+    <p class="product-price">Price: ${{ product.price | number : "1.2-2" }}</p>
+    <p class="product-description">{{ product.description }}</p>
+  </div>
+
+  <button (click)="addToCart(product)" class="add-to-cart-button">
+    Add to Cart
+  </button>
+</div>

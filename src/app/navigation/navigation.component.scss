@@ -13,6 +13,7 @@ body {
 
 /* Header */
 header {
+  position: relative; // Make the header a positioning context
   background-color: #333;
   color: #fff;
   padding: 20px;
@@ -101,4 +102,36 @@ nav {
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 4px;
+}
+
+.cart-container {
+  position: absolute; // Position the cart absolutely
+  top: 20px; // Adjust the distance from the top as needed
+  right: 20px; // Adjust the distance from the right as needed
+}
+
+.cart-menu {
+  display: flex;
+  align-items: center;
+  color: #fff; // Ensure the icon and text are visible
+  text-decoration: none;
+  font-size: 18px;
+
+  .cart-icon {
+    height: 32px; // Adjust as necessary for your design
+    margin-right: 4px; // Space between icon and count
+  }
+
+  .item-count {
+    background-color: #ff5a5f; // Notification bubble color
+    color: #fff; // Text color for item count
+    border-radius: 50%;
+    padding: 4px 8px; // Add padding for a rounded effect
+    font-size: 14px; // Adjust font size
+    position: absolute;
+    top: -10px; // Position the count above the icon
+    right: -10px; // Adjust as necessary for alignment
+    min-width: 20px; // Ensure a minimum width
+    text-align: center; // Center the count
+  }
 }

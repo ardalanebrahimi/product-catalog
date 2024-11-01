@@ -20,6 +20,16 @@
       <li><a routerLink="/home" (click)="logout()">Logout</a></li>
     </ul>
   </nav>
+  <div class="cart-container" *ngIf="!userService.isAdmin()">
+    <a routerLink="/cart" class="cart-menu">
+      <img
+        src="/assets/images/cart.png"
+        alt="Shopping Cart"
+        class="cart-icon"
+      />
+      <span class="item-count">{{ cartService.getItemCount() }}</span>
+    </a>
+  </div>
 </header>
 
 <router-outlet></router-outlet>

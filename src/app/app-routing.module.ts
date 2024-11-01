@@ -4,6 +4,7 @@ import { ProductCreateComponent } from './product-create/product-create.componen
 import { LandingPageComponent } from './landing-page.component/landing-page.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
+import { ProductViewComponent } from './product-view/product-view.component';
 
 const routes: Routes = [
   { path: 'home', component: LandingPageComponent },
@@ -23,6 +24,8 @@ const routes: Routes = [
     component: ProductCreateComponent,
     canActivate: [AuthGuard],
   },
+  { path: 'products/:id', component: ProductViewComponent },
+
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {

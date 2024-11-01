@@ -4,7 +4,11 @@
     <div class="product-grid">
       <!-- Display featured products in a grid -->
       <!-- Example product card -->
-      <div *ngFor="let product of products" class="product-card">
+      <div
+        *ngFor="let product of products"
+        class="product-card"
+        (click)="viewProduct(product.id)"
+      >
         <!-- Display the product image if available, or show the empty placeholder -->
         <img
           *ngIf="product.images && product.images.length > 0; else emptyImage"

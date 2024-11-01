@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from '../service/user.service';
-import { Router } from '@angular/router';
+import { CartService } from '../service/cart.service'; // Import your CartService
 
 @Component({
   selector: 'app-navigation',
@@ -8,10 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent {
-  /**
-   *
-   */
-  constructor(public userService: UserService) {}
+  constructor(
+    public userService: UserService,
+    public cartService: CartService // Inject CartService
+  ) {}
 
   logout() {
     this.userService.logout();
