@@ -5,6 +5,10 @@ import { LandingPageComponent } from './landing-page.component/landing-page.comp
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { ProductViewComponent } from './product-view/product-view.component';
+import { CartComponent } from './cart/cart.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
+import { PaymentComponent } from './payment/payment.component';
+import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 
 const routes: Routes = [
   { path: 'home', component: LandingPageComponent },
@@ -27,6 +31,11 @@ const routes: Routes = [
   { path: 'products/:id', component: ProductViewComponent },
 
   { path: 'login', component: LoginComponent },
+  { path: 'cart', component: CartComponent },
+  { path: 'order-details', component: OrderDetailsComponent },
+  { path: 'payment', component: PaymentComponent },
+  { path: 'order-confirmation', component: OrderConfirmationComponent },
+
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: '*',

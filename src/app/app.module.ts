@@ -12,6 +12,10 @@ import { LandingPageComponent } from './landing-page.component/landing-page.comp
 import { AuthInterceptor } from './auth.interceptor';
 import { LoginComponent } from './login/login.component';
 import { ProductViewComponent } from './product-view/product-view.component';
+import { CartComponent } from './cart/cart.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
+import { PaymentComponent } from './payment/payment.component';
+import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +25,10 @@ import { ProductViewComponent } from './product-view/product-view.component';
     ProductCreateComponent,
     LoginComponent,
     ProductViewComponent,
+    CartComponent,
+    OrderDetailsComponent,
+    PaymentComponent,
+    OrderConfirmationComponent,
   ],
   imports: [
     BrowserModule,

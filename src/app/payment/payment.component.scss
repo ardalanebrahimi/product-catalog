@@ -1,0 +1,14 @@
+.pay-btn {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+
+  &:hover {
+    background-color: #218838;
+  }
+}
