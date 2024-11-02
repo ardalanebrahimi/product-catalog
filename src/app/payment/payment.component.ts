@@ -1,6 +1,7 @@
 // payment.component.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartService } from '../service/cart.service';
 
 @Component({
   selector: 'app-payment',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, public cartService: CartService) {}
 
   finalizeOrder(): void {
     // Here you would normally handle the payment process
@@ -16,5 +17,6 @@ export class PaymentComponent {
 
     // Navigate to the order confirmation page
     this.router.navigate(['/order-confirmation']);
+    this.cartService.clearCart(); // Clear cart after finalizing order
   }
 }
