@@ -12,7 +12,7 @@
             src="/assets/images/logo.png"
             alt="logo"
           />
-          <span class="home-menu-lable">Home</span></a
+          <span class="home-menu-label">Home</span></a
         >
       </li>
       <li><a routerLink="/catalog/product-catalog">Product Catalog</a></li>
@@ -21,6 +21,13 @@
     </ul>
   </nav>
   <div class="cart-container" *ngIf="!userService.isAdmin()">
+    <a routerLink="/home" class="home-menu">
+      <img
+        src="/assets/images/logo-fade-back.png"
+        alt="Home"
+        class="home-icon"
+      />
+    </a>
     <a routerLink="/cart" class="cart-menu">
       <img
         src="/assets/images/cart.png"

@@ -42,7 +42,7 @@ nav {
     height: 32px;
     border-radius: 16px;
   }
-  &-lable {
+  &-label {
     margin-left: 4px;
   }
 }
@@ -105,9 +105,24 @@ nav {
 }
 
 .cart-container {
-  position: absolute; // Position the cart absolutely
+  position: absolute; // Position the cart and home icons absolutely
   top: 20px; // Adjust the distance from the top as needed
   right: 20px; // Adjust the distance from the right as needed
+  display: flex; // Use flex to align icons horizontally
+  align-items: center; // Center align the icons vertically
+}
+
+.home-menu {
+  display: flex;
+  align-items: center;
+  color: #fff; // Ensure the icon is visible
+  text-decoration: none;
+  margin-right: 20px; // Add space between the home icon and cart icon
+}
+
+.home-icon {
+  height: 32px;
+  border-radius: 16px;
 }
 
 .cart-menu {
