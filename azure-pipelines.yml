@@ -23,7 +23,7 @@ steps:
 
   - script: |
       echo "Creating environment.ts file..."
-      echo "export const environment = { production: false, apiUrl: '$(apiUrl)'};" > src/environments/environment.ts
+      echo "export const environment = { production: false, apiUrl: '$(apiUrl)'};" > environments/environment.ts
     displayName: "Generate environment files"
 
   - task: ArchiveFiles@1
