@@ -1,5 +1,56 @@
-<h2>Payment</h2>
+<div class="payment-container">
+  <!-- Payment Method Selection -->
+  <h3>Select Payment Method</h3>
+  <div class="payment-methods">
+    <label>
+      <input
+        type="radio"
+        name="paymentMethod"
+        value="credit"
+        [(ngModel)]="selectedPaymentMethod"
+      />
+      Credit Card
+    </label>
+    <label>
+      <input
+        type="radio"
+        name="paymentMethod"
+        value="paypal"
+        [(ngModel)]="selectedPaymentMethod"
+      />
+      PayPal
+    </label>
+    <label>
+      <input
+        type="radio"
+        name="paymentMethod"
+        value="klarna"
+        [(ngModel)]="selectedPaymentMethod"
+      />
+      Klarna
+    </label>
+  </div>
 
-<p>Complete the payment to finalize your order.</p>
+  <!-- Credit Card Payment Form -->
+  <div *ngIf="selectedPaymentMethod === 'credit'">
+    <h3>Enter Credit Card Information</h3>
+    <div id="card-element"><!-- Stripe Card Element will mount here --></div>
+    <button id="pay-button" class="pay-btn">Pay with Credit Card</button>
+  </div>
 
-<button (click)="finalizeOrder()" class="pay-btn">Pay Now</button>
+  <!-- PayPal Payment Button -->
+  <div *ngIf="selectedPaymentMethod === 'paypal'">
+    <h3>Pay with PayPal</h3>
+    <button (click)="handlePayPalPayment()" class="payment-option-btn">
+      Pay with PayPal
+    </button>
+  </div>
+
+  <!-- Klarna Payment Button -->
+  <div *ngIf="selectedPaymentMethod === 'klarna'">
+    <h3>Pay with Klarna</h3>
+    <button (click)="handleKlarnaPayment()" class="payment-option-btn klarna">
+      Pay with Klarna
+    </button>
+  </div>
+</div>
