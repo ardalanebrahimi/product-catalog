@@ -8,6 +8,7 @@
         name="paymentMethod"
         value="credit"
         [(ngModel)]="selectedPaymentMethod"
+        (ngModelChange)="onPaymentMethodChange($event)"
       />
       Credit Card
     </label>
@@ -17,6 +18,7 @@
         name="paymentMethod"
         value="paypal"
         [(ngModel)]="selectedPaymentMethod"
+        (ngModelChange)="onPaymentMethodChange($event)"
       />
       PayPal
     </label>
@@ -26,6 +28,7 @@
         name="paymentMethod"
         value="klarna"
         [(ngModel)]="selectedPaymentMethod"
+        (ngModelChange)="onPaymentMethodChange($event)"
       />
       Klarna
     </label>
@@ -41,9 +44,7 @@
   <!-- PayPal Payment Button -->
   <div *ngIf="selectedPaymentMethod === 'paypal'">
     <h3>Pay with PayPal</h3>
-    <button (click)="handlePayPalPayment()" class="payment-option-btn">
-      Pay with PayPal
-    </button>
+    <div id="paypal-button-container"></div>
   </div>
 
   <!-- Klarna Payment Button -->

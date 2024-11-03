@@ -19,7 +19,12 @@ steps:
   displayName: 'npm install'
 
 - script: npm run ng build --prod
-  displayName: 'Build'
+  displayName: 'Build'steps:
+
+  - script: |
+      echo "Creating environment.ts file..."
+      echo "export const environment = { production: false, apiUrl: '$(apiUrl)'};" > src/environments/environment.ts
+    displayName: 'Generate environment files'
 
 - task: ArchiveFiles@1
   displayName: 'Archive files '
