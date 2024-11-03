@@ -4,33 +4,33 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+  - master
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '18.x'
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "18.x"
+    displayName: "Install Node.js"
 
-- script: npm install
-  displayName: 'npm install'
+  - script: npm install
+    displayName: "npm install"
 
-- script: npm run ng build --prod
-  displayName: 'Build'steps:
+  - script: npm run ng build --prod
+    displayName: "Build"
 
-- script: |
-    echo "Creating environment.ts file..."
-    echo "export const environment = { production: false, apiUrl: '$(apiUrl)'};" > src/environments/environment.ts
-  displayName: 'Generate environment files'
+  - script: |
+      echo "Creating environment.ts file..."
+      echo "export const environment = { production: false, apiUrl: '$(apiUrl)'};" > src/environments/environment.ts
+    displayName: "Generate environment files"
 
-- task: ArchiveFiles@1
-  displayName: 'Archive files '
-  inputs:
-      rootFolder: '$(Build.SourcesDirectory)/dist/product-catalog'
+  - task: ArchiveFiles@1
+    displayName: "Archive files "
+    inputs:
+      rootFolder: "$(Build.SourcesDirectory)/dist/product-catalog"
       includeRootFolder: false
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish Artifact: drop"
