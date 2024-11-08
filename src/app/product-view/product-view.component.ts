@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../service/product.service';
 import { Product } from '../model/product.model';
 import { CartService } from '../service/cart.service';
+import { NotificationService } from '../service/notification.service';
 
 @Component({
   selector: 'app-product-view',
@@ -17,11 +18,13 @@ export class ProductViewComponent implements OnInit {
     price: undefined,
     images: [],
   };
+  addedToCart?: boolean;
 
   constructor(
     private productService: ProductService,
-    private cartService: CartService,
-    private route: ActivatedRoute
+    public cartService: CartService,
+    private route: ActivatedRoute,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +43,9 @@ export class ProductViewComponent implements OnInit {
 
   addToCart(product: Product): void {
     this.cartService.addProductToCart(product);
-    alert(`${product.name} added to your cart!`);
+    this.notificationService.showNotification(
+      `${product.name} added to your cart!`
+    );
+    this.addedToCart = true;
   }
 }

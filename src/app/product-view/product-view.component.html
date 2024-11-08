@@ -12,7 +12,14 @@
     <p class="product-description">{{ product.description }}</p>
   </div>
 
-  <button (click)="addToCart(product)" class="add-to-cart-button">
+  <button
+    *ngIf="addedToCart"
+    routerLink="/cart"
+    class="cart-button to-the-cart-button"
+  >
+    To the shopping Cart
+  </button>
+  <button (click)="addToCart(product)" class="cart-button add-to-cart-button">
     Add to Cart
   </button>
 </div>

@@ -16,12 +16,11 @@
     </div>
     <div class="cart-footer">
       <p class="total-items">Total Items: {{ cartService.getItemCount() }}</p>
-      <button class="order-btn" (click)="finalizeOrder()">
-        Finalize Order
-      </button>
+      <button class="order-btn" (click)="finalizeOrder()">Checkout</button>
     </div>
   </div>
 </div>
+s
 
 <ng-template #emptyCart>
   <p class="empty-cart-message">Your cart is empty.</p>

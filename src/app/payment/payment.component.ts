@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import { CartService } from '../service/cart.service';
+import { NotificationService } from '../service/notification.service';
 
 declare var paypal: any; // Declare PayPal from SDK
 
@@ -21,7 +22,8 @@ export class PaymentComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     public cartService: CartService,
-    private zone: NgZone
+    private zone: NgZone,
+    public notificationService: NotificationService
   ) {}
 
   async ngOnInit() {
@@ -115,7 +117,7 @@ export class PaymentComponent implements OnInit {
 
   private handleSuccessfulPayment() {
     this.cartService.clearCart();
-    console.log('Payment successful');
+    this.notificationService.showNotification('Payment successful');
     this.router.navigate(['/order-confirmation']);
   }
 
