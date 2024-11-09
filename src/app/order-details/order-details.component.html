@@ -1,6 +1,29 @@
 <h2>Order Details</h2>
 
-<form (ngSubmit)="submitOrderDetails()" #orderForm="ngForm" class="order-form">
+<!-- Show login/register options if user is not logged in and not a guest -->
+<div *ngIf="!isLoggedIn && !isGuest">
+  <p>Please log in to proceed, or continue as a guest.</p>
+  <button (click)="login()">Log In</button>
+  <button (click)="register()">Register</button>
+  <button (click)="continueAsGuest()">Continue as Guest</button>
+</div>
+
+<!-- Show logged-in user data if logged in -->
+<div *ngIf="isLoggedIn">
+  <h3>Welcome back, {{ userData.name }}!</h3>
+  <p>Email: {{ userData.email }}</p>
+  <p>Address: {{ userData.address }}</p>
+  <p>Phone: {{ userData.phone }}</p>
+  <button (click)="submitOrderDetails()">Proceed to Payment</button>
+</div>
+
+<!-- Show guest form if continuing as guest -->
+<form
+  *ngIf="isGuest"
+  (ngSubmit)="submitOrderDetails()"
+  #orderForm="ngForm"
+  class="order-form"
+>
   <label for="name">Name</label>
   <input type="text" id="name" name="name" required [(ngModel)]="order.name" />
 
@@ -38,3 +61,46 @@
     To Payment
   </button>
 </form>
+
+<div *ngIf="showRegistrationForm" class="registration-form">
+  <h3>Register as a Customer</h3>
+  <form (ngSubmit)="registerCustomer()" #registerForm="ngForm">
+    <label for="username">Username</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      required
+      [(ngModel)]="registerData.username"
+    />
+
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      required
+      [(ngModel)]="registerData.email"
+    />
+
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      required
+      [(ngModel)]="registerData.password"
+    />
+
+    <button type="submit">Register</button>
+  </form>
+  <p *ngIf="registrationMessage">{{ registrationMessage }}</p>
+</div>
+
+<button
+  *ngIf="!showRegistrationForm"
+  (click)="showRegistrationForm = true"
+  class="register-btn"
+>
+  Register
+</button>
