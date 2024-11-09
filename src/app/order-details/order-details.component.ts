@@ -12,8 +12,15 @@ export class OrderDetailsComponent {
   isLoggedIn = false; // Simulate login state
   isGuest = false; // Track if user is continuing as guest
   showRegistrationForm = false;
-  registerData = { username: '', email: '', password: '' };
+  registerData = {
+    name: '',
+    email: '',
+    address: '',
+    phone: '', // Optional
+    password: '',
+  };
   registrationMessage: string | null = null;
+  isRegistrationSuccess = false;
 
   // User data to simulate a logged-in user preview
   userData = {
@@ -64,10 +71,12 @@ export class OrderDetailsComponent {
     this.customerService.registerCustomer(this.registerData).subscribe({
       next: () => {
         this.registrationMessage = 'Registration successful';
+        this.isRegistrationSuccess = true;
         this.showRegistrationForm = false;
       },
       error: (error) => {
         this.registrationMessage = error.error || 'Registration failed';
+        this.isRegistrationSuccess = false;
       },
     });
   }

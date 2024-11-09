@@ -5,8 +5,10 @@ import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
 
 interface RegisterCustomerRequest {
-  username: string;
+  name: string;
   email: string;
+  address: string;
+  phone?: string; // Optional field
   password: string;
 }
 
