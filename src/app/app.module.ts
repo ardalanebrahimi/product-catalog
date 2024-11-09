@@ -17,6 +17,7 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 import { PaymentComponent } from './payment/payment.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { NotificationComponent } from './notification/notification.component';
+import { CustomerLoginComponent } from './customer-login/customer-login.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NotificationComponent } from './notification/notification.component';
     PaymentComponent,
     OrderConfirmationComponent,
     NotificationComponent,
+    CustomerLoginComponent,
   ],
   imports: [
     BrowserModule,

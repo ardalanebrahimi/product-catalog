@@ -1,4 +1,3 @@
-// order-details.component.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CustomerService } from '../service/customer.service';
@@ -22,14 +21,6 @@ export class OrderDetailsComponent {
   registrationMessage: string | null = null;
   isRegistrationSuccess = false;
 
-  // User data to simulate a logged-in user preview
-  userData = {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    address: '123 Sample St, City, Country',
-    phone: '1234567890',
-  };
-
   order = {
     name: '',
     email: '',
@@ -43,14 +34,6 @@ export class OrderDetailsComponent {
     public customerService: CustomerService
   ) {}
 
-  // Simulate login method
-  login(): void {
-    this.isLoggedIn = true;
-    this.isGuest = false;
-    // Load user data into the order form if needed
-    Object.assign(this.order, this.userData);
-  }
-
   // Simulate registration method
   register(): void {
     this.showRegistrationForm = true;
@@ -60,6 +43,12 @@ export class OrderDetailsComponent {
   continueAsGuest(): void {
     this.isGuest = true;
     this.isLoggedIn = false;
+  }
+
+  handleLoginSuccess(userData: any): void {
+    this.isLoggedIn = true;
+    this.isGuest = false;
+    this.order = { ...userData };
   }
 
   submitOrderDetails(): void {

@@ -3,17 +3,19 @@
 <!-- Show login/register options if user is not logged in and not a guest -->
 <div *ngIf="!isLoggedIn && !isGuest">
   <p>Please log in to proceed, or continue as a guest.</p>
-  <button (click)="login()">Log In</button>
+  <app-customer-login
+    (loginSuccess)="handleLoginSuccess($event)"
+  ></app-customer-login>
   <button (click)="register()">Register</button>
   <button (click)="continueAsGuest()">Continue as Guest</button>
 </div>
 
 <!-- Show logged-in user data if logged in -->
 <div *ngIf="isLoggedIn">
-  <h3>Welcome back, {{ userData.name }}!</h3>
-  <p>Email: {{ userData.email }}</p>
-  <p>Address: {{ userData.address }}</p>
-  <p>Phone: {{ userData.phone }}</p>
+  <h3>Welcome back, {{ order.name }}!</h3>
+  <p>Email: {{ order.email }}</p>
+  <p>Address: {{ order.address }}</p>
+  <p>Phone: {{ order.phone }}</p>
   <button (click)="submitOrderDetails()">Proceed to Payment</button>
 </div>
 

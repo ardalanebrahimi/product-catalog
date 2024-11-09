@@ -11,6 +11,10 @@ interface RegisterCustomerRequest {
   phone?: string; // Optional field
   password: string;
 }
+interface LoginRequest {
+  email: string;
+  password: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -22,5 +26,12 @@ export class CustomerService {
 
   registerCustomer(data: RegisterCustomerRequest): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, data);
+  }
+
+  login(data: LoginRequest): Observable<{ accessToken: string }> {
+    return this.http.post<{ accessToken: string }>(
+      `${this.apiUrl}/login`,
+      data
+    );
   }
 }
