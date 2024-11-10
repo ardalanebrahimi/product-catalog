@@ -1,0 +1,17 @@
+@import "../shared-styles.scss";
+
+.registration-form {
+  @extend .shared-form;
+
+  .register-btn {
+    background-color: #28a745;
+
+    &:hover {
+      background-color: #218838;
+    }
+  }
+
+  .login-link {
+    @extend .link-text;
+  }
+}

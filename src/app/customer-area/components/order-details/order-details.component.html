@@ -1,135 +1,38 @@
-<h2>Order Details</h2>
-
-<!-- Show login/register options if user is not logged in and not a guest -->
-<div *ngIf="!isLoggedIn && !isGuest && !showRegistrationForm">
-  <p>Please log in to proceed, or continue as a guest.</p>
+<div
+  *ngIf="
+    !orderDetailService.getIsLoggedIn() &&
+    !orderDetailService.getIsGuest() &&
+    !orderDetailService.showRegistrationForm
+  "
+  class="order-details"
+>
+  <p class="welcome-message">
+    Please log in to proceed, or continue as a guest.
+  </p>
   <app-customer-login
-    (loginSuccess)="handleLoginSuccess($event)"
+    (loginSuccess)="handleLoginSuccess()"
   ></app-customer-login>
   <p>
     Do not have an account yet?
-    <span class="register-link" (click)="register()">Register now.</span>
+    <span class="register-link" (click)="orderDetailService.showRegisterForm()"
+      >Register now.</span
+    >
   </p>
-  <button (click)="continueAsGuest()" class="guest-btn">
+  <button (click)="handleGuestContinue()" class="guest-btn">
     Continue as Guest
   </button>
 </div>
 
-<!-- Show logged-in user data if logged in -->
-<div *ngIf="isLoggedIn">
-  <h3>Welcome back, {{ order.name }}!</h3>
-  <p>Email: {{ order.email }}</p>
-  <p>Address: {{ order.address }}</p>
-  <p>Phone: {{ order.phone }}</p>
-  <button (click)="submitOrderDetails()">Proceed to Payment</button>
-</div>
+<app-guest-customer
+  *ngIf="orderDetailService.getIsGuest()"
+  (guestDetailsSubmitted)="submitOrderDetails()"
+></app-guest-customer>
 
-<!-- Show guest form if continuing as guest -->
-<form
-  *ngIf="isGuest"
-  (ngSubmit)="submitOrderDetails()"
-  #orderForm="ngForm"
-  class="order-form"
->
-  <label for="name">Name</label>
-  <input type="text" id="name" name="name" required [(ngModel)]="order.name" />
-
-  <label for="email">Email</label>
-  <input
-    type="email"
-    id="email"
-    name="email"
-    required
-    [(ngModel)]="order.email"
-  />
-
-  <label for="address">Address</label>
-  <input
-    type="text"
-    id="address"
-    name="address"
-    required
-    [(ngModel)]="order.address"
-  />
-
-  <label for="phone">Phone Number</label>
-  <input
-    type="tel"
-    id="phone"
-    name="phone"
-    required
-    [(ngModel)]="order.phone"
-  />
-
-  <label for="notes">Additional Notes</label>
-  <textarea id="notes" name="notes" [(ngModel)]="order.notes"></textarea>
-
-  <button type="submit" [disabled]="orderForm.invalid" class="submit-btn">
-    To Payment
-  </button>
-  <p>
-    Do not have an account yet?
-    <span class="register-link" (click)="register()">Register now.</span>
-  </p>
-  <p>
-    Already a member?
-    <span class="login-link" (click)="showLoginForm()">Login.</span>
-  </p>
-</form>
-
-<!-- Show registration form if user clicks register -->
-<div *ngIf="showRegistrationForm" class="registration-form">
-  <h3>Register as a Customer</h3>
-  <form (ngSubmit)="registerCustomer()" #registerForm="ngForm">
-    <label for="name">Name</label>
-    <input
-      type="text"
-      id="name"
-      name="name"
-      required
-      [(ngModel)]="registerData.name"
-    />
-
-    <label for="email">Email</label>
-    <input
-      type="email"
-      id="email"
-      name="email"
-      required
-      [(ngModel)]="registerData.email"
-    />
-
-    <label for="address">Address</label>
-    <input
-      type="text"
-      id="address"
-      name="address"
-      required
-      [(ngModel)]="registerData.address"
-    />
-
-    <label for="phone">Phone Number</label>
-    <input
-      type="tel"
-      id="phone"
-      name="phone"
-      [(ngModel)]="registerData.phone"
-    />
-
-    <label for="password">Password</label>
-    <input
-      type="password"
-      id="password"
-      name="password"
-      required
-      [(ngModel)]="registerData.password"
-    />
-
-    <button type="submit">Register</button>
-  </form>
-  <p *ngIf="registrationMessage">{{ registrationMessage }}</p>
-  <p>
-    Already a member?
-    <span class="login-link" (click)="showLoginForm()">Login.</span>
-  </p>
-</div>
+<app-register
+  *ngIf="
+    !orderDetailService.getIsLoggedIn() &&
+    !orderDetailService.getIsGuest() &&
+    orderDetailService.showRegistrationForm
+  "
+  (registrationSuccess)="handleRegistrationSuccess()"
+></app-register>

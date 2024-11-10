@@ -11,6 +11,8 @@ import { LandingPageComponent } from './components/landing-page.component/landin
 import { CustomerNavigationComponent } from './customer-navigation/customer-navigation.component';
 import { CustomerLoginComponent } from './components/customer-login/customer-login.component';
 import { RouterModule } from '@angular/router';
+import { RegisterComponent } from './components/order-details/register/register.component';
+import { GuestCustomerComponent } from './components/order-details/guest-customer/guest-customer.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { RouterModule } from '@angular/router';
     OrderConfirmationComponent,
     CustomerNavigationComponent,
     CustomerLoginComponent,
+    RegisterComponent,
+    GuestCustomerComponent,
     // Any other customer components
   ],
   imports: [CommonModule, RouterModule.forChild(routes), FormsModule],

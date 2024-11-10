@@ -14,8 +14,16 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // Check if token exists in sessionStorage
-    const accessToken = sessionStorage.getItem('accessToken');
+    const adminAccessToken = sessionStorage.getItem('adminAccessToken');
+    const customerAccessToken = sessionStorage.getItem('customerAccessToken');
+
+    // Check if the request is for admin or customer and apply the corresponding token
+    let accessToken: string | null = null;
+    if (adminAccessToken) {
+      accessToken = adminAccessToken;
+    } else if (customerAccessToken) {
+      accessToken = customerAccessToken;
+    }
 
     // Check if the request URL requires auth and if a token exists
     if (accessToken) {

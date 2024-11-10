@@ -1,6 +1,7 @@
+// src/app/components/order-details/order-details.component.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CustomerAuthService } from '../../services/customer-auth.service';
+import { OrderDetailService } from './order-detail.service';
 
 @Component({
   selector: 'app-order-details',
@@ -8,73 +9,28 @@ import { CustomerAuthService } from '../../services/customer-auth.service';
   styleUrls: ['./order-details.component.scss'],
 })
 export class OrderDetailsComponent {
-  isLoggedIn = false; // Simulate login state
-  isGuest = false; // Track if user is continuing as guest
-  showRegistrationForm = false;
-  registerData = {
-    name: '',
-    email: '',
-    address: '',
-    phone: '', // Optional
-    password: '',
-  };
-  registrationMessage: string | null = null;
-  isRegistrationSuccess = false;
-
-  order = {
-    name: '',
-    email: '',
-    address: '',
-    phone: '',
-    notes: '',
-  };
-
   constructor(
     private router: Router,
-    public customerAuthService: CustomerAuthService
+    public orderDetailService: OrderDetailService
   ) {}
 
-  // Simulate registration method
-  register(): void {
-    this.showRegistrationForm = true;
-    this.isGuest = false;
+  handleLoginSuccess() {
+    this.orderDetailService.setLoggedIn(true);
   }
 
-  // Continue as guest
-  continueAsGuest(): void {
-    this.isGuest = true;
-    this.isLoggedIn = false;
+  handleGuestContinue() {
+    this.orderDetailService.setGuest(true);
   }
 
-  handleLoginSuccess(userData: any): void {
-    this.isLoggedIn = true;
-    this.isGuest = false;
-    this.order = { ...userData };
+  handleRegistrationSuccess() {
+    this.orderDetailService.setLoggedIn(true);
   }
 
-  submitOrderDetails(): void {
-    console.log('Order details submitted:', this.order);
+  submitOrderDetails() {
+    console.log(
+      'Order details submitted:',
+      this.orderDetailService.getOrderDetails()
+    );
     this.router.navigate(['/payment']);
-  }
-
-  // Register a new customer
-  registerCustomer() {
-    this.customerAuthService.registerCustomer(this.registerData).subscribe({
-      next: () => {
-        this.registrationMessage = 'Registration successful';
-        this.isRegistrationSuccess = true;
-        this.showRegistrationForm = false;
-      },
-      error: (error) => {
-        this.registrationMessage = error.error || 'Registration failed';
-        this.isRegistrationSuccess = false;
-      },
-    });
-  }
-
-  // Switch to login form
-  showLoginForm(): void {
-    this.showRegistrationForm = false;
-    this.isGuest = false;
   }
 }

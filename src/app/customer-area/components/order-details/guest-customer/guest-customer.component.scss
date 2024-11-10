@@ -1,0 +1,19 @@
+@import "../shared-styles.scss";
+
+.order-form {
+  @extend .shared-form;
+
+  .guest-submit-btn {
+    background-color: #ffc107;
+    color: #333;
+
+    &:hover {
+      background-color: #e0a800;
+    }
+  }
+
+  .register-link,
+  .login-link {
+    @extend .link-text;
+  }
+}
