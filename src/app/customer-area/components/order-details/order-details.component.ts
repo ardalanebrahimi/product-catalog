@@ -37,6 +37,7 @@ export class OrderDetailsComponent {
   // Simulate registration method
   register(): void {
     this.showRegistrationForm = true;
+    this.isGuest = false;
   }
 
   // Continue as guest
@@ -55,6 +56,7 @@ export class OrderDetailsComponent {
     console.log('Order details submitted:', this.order);
     this.router.navigate(['/payment']);
   }
+
   // Register a new customer
   registerCustomer() {
     this.customerService.registerCustomer(this.registerData).subscribe({
@@ -68,5 +70,11 @@ export class OrderDetailsComponent {
         this.isRegistrationSuccess = false;
       },
     });
+  }
+
+  // Switch to login form
+  showLoginForm(): void {
+    this.showRegistrationForm = false;
+    this.isGuest = false;
   }
 }

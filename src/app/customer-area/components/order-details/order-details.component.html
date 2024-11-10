@@ -1,13 +1,18 @@
 <h2>Order Details</h2>
 
 <!-- Show login/register options if user is not logged in and not a guest -->
-<div *ngIf="!isLoggedIn && !isGuest">
+<div *ngIf="!isLoggedIn && !isGuest && !showRegistrationForm">
   <p>Please log in to proceed, or continue as a guest.</p>
   <app-customer-login
     (loginSuccess)="handleLoginSuccess($event)"
   ></app-customer-login>
-  <button (click)="register()">Register</button>
-  <button (click)="continueAsGuest()">Continue as Guest</button>
+  <p>
+    Do not have an account yet?
+    <span class="register-link" (click)="register()">Register now.</span>
+  </p>
+  <button (click)="continueAsGuest()" class="guest-btn">
+    Continue as Guest
+  </button>
 </div>
 
 <!-- Show logged-in user data if logged in -->
@@ -62,8 +67,17 @@
   <button type="submit" [disabled]="orderForm.invalid" class="submit-btn">
     To Payment
   </button>
+  <p>
+    Do not have an account yet?
+    <span class="register-link" (click)="register()">Register now.</span>
+  </p>
+  <p>
+    Already a member?
+    <span class="login-link" (click)="showLoginForm()">Login.</span>
+  </p>
 </form>
 
+<!-- Show registration form if user clicks register -->
 <div *ngIf="showRegistrationForm" class="registration-form">
   <h3>Register as a Customer</h3>
   <form (ngSubmit)="registerCustomer()" #registerForm="ngForm">
@@ -114,12 +128,8 @@
     <button type="submit">Register</button>
   </form>
   <p *ngIf="registrationMessage">{{ registrationMessage }}</p>
+  <p>
+    Already a member?
+    <span class="login-link" (click)="showLoginForm()">Login.</span>
+  </p>
 </div>
-
-<button
-  *ngIf="!showRegistrationForm"
-  (click)="showRegistrationForm = true"
-  class="register-btn"
->
-  Register
-</button>

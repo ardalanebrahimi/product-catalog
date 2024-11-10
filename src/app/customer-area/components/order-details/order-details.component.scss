@@ -59,6 +59,7 @@ button {
   &.guest-btn {
     background-color: #ffc107;
     color: #333;
+    width: 100%;
 
     &:hover {
       background-color: #e0a800;
@@ -141,6 +142,7 @@ button {
     }
   }
 }
+
 .registration-form {
   max-width: 500px;
   margin: 2rem auto;
