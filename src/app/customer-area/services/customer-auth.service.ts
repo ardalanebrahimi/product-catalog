@@ -19,7 +19,7 @@ interface LoginRequest {
 @Injectable({
   providedIn: 'root',
 })
-export class CustomerService {
+export class CustomerAuthService {
   private apiUrl = environment.apiUrl + 'customer';
 
   constructor(private http: HttpClient) {}

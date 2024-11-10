@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CustomerService } from '../../services/customer.service';
+import { CustomerAuthService } from '../../services/customer-auth.service';
 
 @Component({
   selector: 'app-customer-login',
@@ -13,12 +13,12 @@ export class CustomerLoginComponent {
   error: string | null = null;
 
   constructor(
-    private customerService: CustomerService,
+    private customerAuthService: CustomerAuthService,
     private router: Router
   ) {}
 
   login() {
-    this.customerService
+    this.customerAuthService
       .login({ email: this.email, password: this.password })
       .subscribe(
         (response) => {

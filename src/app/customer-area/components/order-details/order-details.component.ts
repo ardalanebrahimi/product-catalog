@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CustomerService } from '../../services/customer.service';
+import { CustomerAuthService } from '../../services/customer-auth.service';
 
 @Component({
   selector: 'app-order-details',
@@ -31,7 +31,7 @@ export class OrderDetailsComponent {
 
   constructor(
     private router: Router,
-    public customerService: CustomerService
+    public customerAuthService: CustomerAuthService
   ) {}
 
   // Simulate registration method
@@ -59,7 +59,7 @@ export class OrderDetailsComponent {
 
   // Register a new customer
   registerCustomer() {
-    this.customerService.registerCustomer(this.registerData).subscribe({
+    this.customerAuthService.registerCustomer(this.registerData).subscribe({
       next: () => {
         this.registrationMessage = 'Registration successful';
         this.isRegistrationSuccess = true;
