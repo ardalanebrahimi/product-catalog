@@ -1,7 +1,7 @@
 // login.component.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
+import { AdminAuthService } from '../../services/admin-auth.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -13,7 +13,7 @@ export class AdminLoginComponent {
   password: string = '';
   error: string | null = null;
 
-  constructor(private service: UserService, private router: Router) {}
+  constructor(private service: AdminAuthService, private router: Router) {}
 
   login() {
     this.service.login(this.username, this.password).subscribe(

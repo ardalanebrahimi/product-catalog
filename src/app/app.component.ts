@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './admin-area/services/user.service';
+import { AdminAuthService } from './admin-area/services/admin-auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +7,9 @@ import { UserService } from './admin-area/services/user.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(public userService: UserService) {}
+  constructor(public service: AdminAuthService) {}
 
   isAdmin() {
-    return this.userService.isAdmin() === true;
+    return this.service.isAdmin() === true;
   }
 }
