@@ -1,15 +1,18 @@
-const { shareAll, withModuleFederationPlugin } = require('@angular-architects/module-federation/webpack');
+const {
+  shareAll,
+  withModuleFederationPlugin,
+} = require("@angular-architects/module-federation/webpack");
 
 module.exports = withModuleFederationPlugin({
+  name: "product-catalog",
 
-  name: 'product-catalog',
-
-  exposes: {
-    './Module': './src/app/catalog/catalog.module.ts',
-  },
+  exposes: {},
 
   shared: {
-    ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
+    ...shareAll({
+      singleton: true,
+      strictVersion: true,
+      requiredVersion: "auto",
+    }),
   },
-
 });

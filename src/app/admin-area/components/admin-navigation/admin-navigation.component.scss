@@ -1,0 +1,162 @@
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.faded-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px; /* Height of the faded area */
+  background-color: rgba(150, 145, 135, 0.5); /* Semi-transparent black */
+  z-index: 1; /* Ensure it sits above other header content */
+}
+/* Header */
+header {
+  position: relative; // Make the header a positioning context
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+
+  background-image: url(/assets/images/bg.jpg);
+  background-size: cover; /* Cover the entire area */
+  background-position: center; /* Center the image */
+  height: 300px; /* Set a minimum height */
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.home-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  &-logo {
+    height: 32px;
+    border-radius: 16px;
+  }
+  &-label {
+    margin-left: 4px;
+  }
+}
+
+.horizontal-menu {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.horizontal-menu li {
+  margin-right: 20px;
+}
+
+.horizontal-menu li:last-child {
+  margin-right: 0;
+}
+
+.horizontal-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.hero-banner {
+  text-align: center;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    font-size: 36px;
+  }
+
+  p {
+    font-size: 18px;
+  }
+  h1,
+  p {
+    background-color: #00000060;
+    width: fit-content;
+    align-self: center;
+    padding: 6px;
+    border-radius: 6px;
+  }
+}
+
+.cta-button {
+  background-color: #ff5a5f;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.cart-container {
+  position: absolute; // Position the cart and home icons absolutely
+  top: 10px; // Adjust the distance from the top as needed
+  right: 20px; // Adjust the distance from the right as needed
+  display: flex; // Use flex to align icons horizontally
+  align-items: center; // Center align the icons vertically
+  z-index: 2; /* Ensure it sits above the faded area */
+}
+
+.home-menu {
+  display: flex;
+  align-items: center;
+  color: #fff; // Ensure the icon is visible
+  text-decoration: none;
+  margin-right: 20px; // Add space between the home icon and cart icon
+}
+
+.home-icon {
+  height: 48px;
+  border-radius: 24px;
+}
+
+.cart-menu {
+  display: flex;
+  align-items: center;
+  color: #fff; // Ensure the icon and text are visible
+  text-decoration: none;
+  font-size: 18px;
+  margin-top: auto;
+
+  .cart-icon {
+    height: 32px; // Adjust as necessary for your design
+    margin-right: 4px; // Space between icon and count
+  }
+
+  .item-count {
+    background-color: #ff5a5f; // Notification bubble color
+    color: #fff; // Text color for item count
+    border-radius: 50%;
+    padding: 4px 8px; // Add padding for a rounded effect
+    font-size: 14px; // Adjust font size
+    position: absolute;
+    top: 5px; // Position the count above the icon
+    right: -10px; // Adjust as necessary for alignment
+    min-width: 20px; // Ensure a minimum width
+    text-align: center; // Center the count
+  }
+}

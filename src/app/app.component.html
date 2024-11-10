@@ -1,2 +1,9 @@
 <app-notification></app-notification>
-<app-navigation></app-navigation>
+<ng-container *ngIf="isAdmin(); else customerNav">
+  <app-admin-navigation></app-admin-navigation>
+</ng-container>
+<ng-template #customerNav>
+  <app-customer-navigation></app-customer-navigation>
+</ng-template>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,30 @@
+<div class="admin-dashboard-container">
+  <h2>Admin Dashboard</h2>
+
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <div class="dashboard-metrics">
+    <div class="metric-card">
+      <h3>Total Products</h3>
+      <p *ngIf="isLoadingProducts">Loading...</p>
+      <p *ngIf="!isLoadingProducts">{{ totalProducts }}</p>
+    </div>
+    <div class="metric-card">
+      <h3>Total Orders</h3>
+      <p *ngIf="isLoadingOrders">Loading...</p>
+      <p *ngIf="!isLoadingOrders">{{ totalOrders }}</p>
+    </div>
+    <div class="metric-card">
+      <h3>Pending Orders</h3>
+      <p *ngIf="isLoadingOrders">Loading...</p>
+      <p *ngIf="!isLoadingOrders">{{ pendingOrders }}</p>
+    </div>
+  </div>
+
+  <div class="admin-actions">
+    <button routerLink="/products">Manage Products</button>
+    <button routerLink="/orders">View Orders</button>
+  </div>
+</div>
