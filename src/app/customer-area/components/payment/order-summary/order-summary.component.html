@@ -1,0 +1,7 @@
+<div class="order-summary">
+  <h3>Order Summary</h3>
+  <div *ngFor="let product of products">
+    <p>{{ product.name }} - {{ product.price | currency }}</p>
+  </div>
+  <p>Total: {{ calculateTotalAmount() | currency }}</p>
+</div>

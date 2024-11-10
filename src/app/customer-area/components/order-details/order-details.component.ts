@@ -16,20 +16,29 @@ export class OrderDetailsComponent {
 
   handleLoginSuccess() {
     this.orderDetailService.setLoggedIn(true);
+    this.orderDetailService.setCustomer(
+      this.orderDetailService.getOrderDetails()
+    );
   }
 
   handleGuestContinue() {
     this.orderDetailService.setGuest(true);
+    this.orderDetailService.setCustomer(
+      this.orderDetailService.getOrderDetails()
+    );
   }
 
   handleRegistrationSuccess() {
     this.orderDetailService.setLoggedIn(true);
+    this.orderDetailService.setCustomer(
+      this.orderDetailService.getOrderDetails()
+    );
   }
 
   submitOrderDetails() {
     console.log(
       'Order details submitted:',
-      this.orderDetailService.getOrderDetails()
+      this.orderDetailService.getCustomer()
     );
     this.router.navigate(['/payment']);
   }

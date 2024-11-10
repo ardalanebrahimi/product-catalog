@@ -44,4 +44,16 @@ export class CartService {
     this.cart = [];
     localStorage.removeItem('cart');
   }
+
+  // New methods
+  getCartProducts(): Product[] {
+    return this.cart;
+  }
+
+  calculateTotalPrice(): number {
+    return this.cart.reduce(
+      (total, product) => total + (product.price || 0),
+      0
+    );
+  }
 }

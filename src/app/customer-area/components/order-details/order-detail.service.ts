@@ -26,6 +26,9 @@ export class OrderDetailService {
     notes: '',
   };
 
+  // New property to hold customer information
+  customer: any = {};
+
   constructor(public customerAuthService: CustomerAuthService) {}
 
   setLoggedIn(status: boolean) {
@@ -42,6 +45,7 @@ export class OrderDetailService {
 
   setOrderDetails(details: any) {
     this.order = { ...this.order, ...details };
+    this.customer = { ...details };
   }
 
   getIsLoggedIn() {
@@ -52,6 +56,16 @@ export class OrderDetailService {
     return this.isGuest;
   }
 
+  // Method to set customer information (either logged in or guest)
+  setCustomer(details: any) {
+    this.customer = { ...details };
+  }
+
+  // Method to get customer information
+  getCustomer() {
+    return this.customer;
+  }
+
   // Register a new customer
   registerCustomer() {
     this.customerAuthService.registerCustomer(this.registerData).subscribe({
@@ -59,6 +73,7 @@ export class OrderDetailService {
         this.registrationMessage = 'Registration successful';
         this.isRegistrationSuccess = true;
         this.showRegistrationForm = false;
+        this.setCustomer(this.registerData);
       },
       error: (error) => {
         this.registrationMessage = error.error || 'Registration failed';
@@ -74,7 +89,7 @@ export class OrderDetailService {
     this.isLoggedIn = false;
   }
 
-  // Switch to login form
+  // Switch to register form
   showRegisterForm(): void {
     this.showRegistrationForm = true;
     this.isGuest = false;

@@ -8,7 +8,7 @@ import { OrderDetailService } from '../order-detail.service';
   styleUrls: ['./guest-customer.component.scss'],
 })
 export class GuestCustomerComponent {
-  @Output() guestDetailsSubmitted = new EventEmitter<void>();
+  @Output() guestDetailsSubmitted = new EventEmitter<any>();
 
   order = {
     name: '',
@@ -22,6 +22,6 @@ export class GuestCustomerComponent {
 
   submitOrderDetails() {
     this.orderDetailService.setOrderDetails(this.order);
-    this.guestDetailsSubmitted.emit();
+    this.guestDetailsSubmitted.emit(this.order);
   }
 }

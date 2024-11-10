@@ -5,8 +5,9 @@ import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import { CartService } from '../../services/cart.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
+import { OrderDetailService } from '../order-details/order-detail.service';
 
-declare var paypal: any; // Declare PayPal from SDK
+declare var paypal: any;
 
 @Component({
   selector: 'app-payment',
@@ -17,17 +18,28 @@ export class PaymentComponent implements OnInit {
   private stripe: Stripe | null = null;
   clientSecret: string = '';
   selectedPaymentMethod: 'credit' | 'paypal' | 'klarna' = 'credit';
+  customer: any = {}; // Customer info from OrderDetailService
 
   constructor(
     private http: HttpClient,
     private router: Router,
     public cartService: CartService,
     private zone: NgZone,
-    public notificationService: NotificationService
+    public notificationService: NotificationService,
+    private orderDetailService: OrderDetailService // Injecting OrderDetailService
   ) {}
 
   async ngOnInit() {
-    // Load payment option based on the selected method
+    this.loadCustomerData();
+    this.loadPaymentMethod();
+  }
+
+  loadCustomerData() {
+    // Get customer data from OrderDetailService (either from logged-in or guest state)
+    this.customer = this.orderDetailService.getCustomer();
+  }
+
+  loadPaymentMethod() {
     if (this.selectedPaymentMethod === 'credit') {
       this.loadStripePublicKey();
     } else if (this.selectedPaymentMethod === 'paypal') {
@@ -35,20 +47,12 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  // Handle changes in the payment method
   onPaymentMethodChange(paymentMethod: 'credit' | 'paypal' | 'klarna') {
     this.selectedPaymentMethod = paymentMethod;
-    if (paymentMethod === 'credit') {
-      this.loadStripePublicKey();
-    } else if (paymentMethod === 'paypal') {
-      this.loadPayPalClientId();
-    } else if (paymentMethod === 'klarna') {
-      console.log('Klarna selected');
-      // Implement Klarna initialization if needed
-    }
+    this.loadPaymentMethod();
   }
 
-  // Load Stripe public key from backend and initialize Stripe
+  // Payment Methods Initialization (Credit Card, PayPal, Klarna)
   private loadStripePublicKey() {
     this.http
       .get<{ publicKey: string }>(
@@ -72,20 +76,16 @@ export class PaymentComponent implements OnInit {
   }
 
   createPaymentIntent(): void {
-    const amount = this.calculateTotalAmount();
+    const amount = this.cartService.calculateTotalPrice(); // Use actual total from cart
     this.http
       .post<{ clientSecret: string }>(
         `${environment.apiUrl}payment/create-payment-intent`,
-        { amount }
+        { amount, customer: this.customer }
       )
       .subscribe((response) => {
         this.clientSecret = response.clientSecret;
         this.mountStripeElements();
       });
-  }
-
-  calculateTotalAmount(): number {
-    return 1000; // Example amount in cents
   }
 
   mountStripeElements() {
@@ -103,6 +103,7 @@ export class PaymentComponent implements OnInit {
           {
             payment_method: {
               card: cardElement,
+              billing_details: this.customer,
             },
           }
         );
@@ -139,18 +140,20 @@ export class PaymentComponent implements OnInit {
     script.onload = () => this.loadPayPalButton();
     document.body.appendChild(script);
   }
-
   loadPayPalButton() {
     this.zone.runOutsideAngular(() => {
       setTimeout(() => {
         paypal
           .Buttons({
             createOrder: () => {
-              const amount = this.calculateTotalAmount();
+              // Calculate and round the amount to two decimal places
+              const amount = parseFloat(
+                this.cartService.calculateTotalPrice().toFixed(2)
+              );
               return this.http
                 .post<{ orderId: string }>(
                   `${environment.apiUrl}payment/create-paypal-order`,
-                  { amount: amount },
+                  { amount },
                   { headers: { 'Content-Type': 'application/json' } }
                 )
                 .toPromise()

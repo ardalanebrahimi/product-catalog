@@ -13,6 +13,8 @@ import { CustomerLoginComponent } from './components/customer-login/customer-log
 import { RouterModule } from '@angular/router';
 import { RegisterComponent } from './components/order-details/register/register.component';
 import { GuestCustomerComponent } from './components/order-details/guest-customer/guest-customer.component';
+import { OrderSummaryComponent } from './components/payment/order-summary/order-summary.component';
+import { CustomerDataComponent } from './components/payment/customer-data/customer-data.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { GuestCustomerComponent } from './components/order-details/guest-custome
     CustomerLoginComponent,
     RegisterComponent,
     GuestCustomerComponent,
+    OrderSummaryComponent,
+    CustomerDataComponent,
     // Any other customer components
   ],
   imports: [CommonModule, RouterModule.forChild(routes), FormsModule],

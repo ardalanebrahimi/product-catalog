@@ -1,4 +1,14 @@
 <div class="payment-container">
+  <!-- Order Summary Section -->
+  <app-order-summary></app-order-summary>
+
+  <hr />
+
+  <!-- Customer Data Overview -->
+  <app-customer-data [customer]="customer"></app-customer-data>
+
+  <hr />
+
   <!-- Payment Method Selection -->
   <h3>Select Payment Method</h3>
   <div class="payment-methods">
@@ -34,20 +44,18 @@
     </label>
   </div>
 
-  <!-- Credit Card Payment Form -->
+  <!-- Payment Forms -->
   <div *ngIf="selectedPaymentMethod === 'credit'">
     <h3>Enter Credit Card Information</h3>
     <div id="card-element"><!-- Stripe Card Element will mount here --></div>
     <button id="pay-button" class="pay-btn">Pay with Credit Card</button>
   </div>
 
-  <!-- PayPal Payment Button -->
   <div *ngIf="selectedPaymentMethod === 'paypal'">
     <h3>Pay with PayPal</h3>
     <div id="paypal-button-container"></div>
   </div>
 
-  <!-- Klarna Payment Button -->
   <div *ngIf="selectedPaymentMethod === 'klarna'">
     <h3>Pay with Klarna</h3>
     <button (click)="handleKlarnaPayment()" class="payment-option-btn klarna">
