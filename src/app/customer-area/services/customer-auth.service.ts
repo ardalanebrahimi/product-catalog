@@ -1,4 +1,4 @@
-// src/app/services/auth.service.ts
+// src/app/services/customer-auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -11,6 +11,7 @@ interface RegisterCustomerRequest {
   phone?: string; // Optional field
   password: string;
 }
+
 interface LoginRequest {
   email: string;
   password: string;
@@ -24,14 +25,30 @@ export class CustomerAuthService {
 
   constructor(private http: HttpClient) {}
 
+  // Register a new customer
   registerCustomer(data: RegisterCustomerRequest): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, data);
   }
 
+  // Customer login and store access token
   login(data: LoginRequest): Observable<{ accessToken: string }> {
     return this.http.post<{ accessToken: string }>(
       `${this.apiUrl}/login`,
       data
     );
+  }
+
+  // Save customer access token
+  saveToken(token: string): void {
+    sessionStorage.setItem('customerAccessToken', token);
+  }
+
+  // Check if the customer is logged in
+  isCustomerLoggedIn = (): boolean =>
+    sessionStorage.getItem('customerAccessToken') !== null;
+
+  // Logout and clear session
+  logout(): void {
+    sessionStorage.removeItem('customerAccessToken');
   }
 }

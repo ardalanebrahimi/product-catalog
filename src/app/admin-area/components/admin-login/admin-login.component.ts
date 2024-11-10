@@ -18,7 +18,7 @@ export class AdminLoginComponent {
   login() {
     this.service.login(this.username, this.password).subscribe(
       (response) => {
-        sessionStorage.setItem('accessToken', response.accessToken);
+        this.service.saveToken(response.accessToken);
         this.router.navigate(['/dashboard']);
       },
       (error) => {

@@ -1,3 +1,4 @@
+// customer-login.component.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CustomerAuthService } from '../../services/customer-auth.service';
@@ -8,26 +9,26 @@ import { CustomerAuthService } from '../../services/customer-auth.service';
   styleUrls: ['./customer-login.component.scss'],
 })
 export class CustomerLoginComponent {
-  email: string = '';
-  password: string = '';
-  error: string | null = null;
+  email = '';
+  password = '';
+  error?: string;
 
   constructor(
-    private customerAuthService: CustomerAuthService,
+    private authService: CustomerAuthService,
     private router: Router
   ) {}
 
   login() {
-    this.customerAuthService
+    this.authService
       .login({ email: this.email, password: this.password })
-      .subscribe(
-        (response) => {
-          sessionStorage.setItem('accessToken', response.accessToken);
-          this.router.navigate(['/home']);
+      .subscribe({
+        next: (response) => {
+          this.authService.saveToken(response.accessToken);
+          this.router.navigate(['/shop']); // Redirect to the shop homepage
         },
-        (error) => {
-          this.error = 'Login failed. Please check your email and password.';
-        }
-      );
+        error: (err) => {
+          (this.error = 'Login failed:'), err;
+        },
+      });
   }
 }

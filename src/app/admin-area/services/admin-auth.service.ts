@@ -11,6 +11,7 @@ export class AdminAuthService {
 
   constructor(private http: HttpClient) {}
 
+  // Admin login and store access token
   login(username: string, password: string) {
     return this.http.post<{ accessToken: string }>(`${this.apiUrl}/login`, {
       username: username,
@@ -18,11 +19,16 @@ export class AdminAuthService {
     });
   }
 
-  logout() {
-    sessionStorage.removeItem('accessToken');
+  // Save admin access token
+  saveToken(token: string): void {
+    sessionStorage.setItem('adminAccessToken', token);
   }
 
-  isAdmin = () =>
-    sessionStorage.getItem('accessToken') &&
-    sessionStorage.getItem('accessToken') !== 'undefined';
+  // Check if an admin is logged in
+  isAdmin = (): boolean => sessionStorage.getItem('adminAccessToken') !== null;
+
+  // Logout and clear session
+  logout(): void {
+    sessionStorage.removeItem('adminAccessToken');
+  }
 }
