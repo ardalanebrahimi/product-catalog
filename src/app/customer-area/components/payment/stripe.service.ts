@@ -39,24 +39,35 @@ export class StripeService {
     }
   }
 
-  async handleCreditPayment() {
-    await this.createPaymentIntent()?.subscribe(() => {
-      const cardElement = this.mountCardElement();
-      document
-        .querySelector('button#pay-button')
-        ?.addEventListener('click', async () => {
-          const { paymentIntent, error } = await this.confirmCardPayment(
-            cardElement,
-            this.customer
-          );
+  mountStripeElements() {
+    if (!this.stripe || !this.clientSecret) return;
 
-          if (error) {
-            console.error('Payment failed:', error);
-          } else if (paymentIntent) {
-            this.handleSuccessfulPayment();
+    const elements = this.stripe.elements();
+    const cardElement = elements.create('card', { hidePostalCode: true });
+    cardElement.mount('#card-element');
+
+    document
+      .querySelector('button#pay-button')
+      ?.addEventListener('click', async () => {
+        const { paymentIntent, error } = await this.stripe!.confirmCardPayment(
+          this.clientSecret,
+          {
+            payment_method: {
+              card: cardElement,
+            },
           }
-        });
-    });
+        );
+
+        if (error) {
+          console.error('Payment failed:', error);
+        } else if (paymentIntent) {
+          this.handleSuccessfulPayment();
+        }
+      });
+  }
+
+  async handleCreditPayment() {
+    await this.createPaymentIntent();
   }
 
   createPaymentIntent() {
@@ -75,35 +86,10 @@ export class StripeService {
         `${environment.apiUrl}payment/create-payment-intent`,
         { amount: this.amount, customer: this.customer }
       )
-      .pipe(
-        map((response) => {
-          this.clientSecret = response.clientSecret;
-          return response.clientSecret;
-        })
-      );
-  }
-
-  mountCardElement(): any {
-    if (!this.stripe || !this.clientSecret) return;
-
-    const elements = this.stripe.elements();
-    const cardElement = elements.create('card', { hidePostalCode: true });
-    cardElement.mount('#card-element');
-
-    return cardElement;
-  }
-
-  async confirmCardPayment(cardElement: any, billingDetails: any) {
-    const { paymentIntent, error } = await this.stripe!.confirmCardPayment(
-      this.clientSecret,
-      {
-        payment_method: {
-          card: cardElement,
-          billing_details: billingDetails,
-        },
-      }
-    );
-    return { paymentIntent, error };
+      .subscribe((response) => {
+        this.clientSecret = response.clientSecret;
+        this.mountStripeElements();
+      });
   }
 
   private handleSuccessfulPayment() {
