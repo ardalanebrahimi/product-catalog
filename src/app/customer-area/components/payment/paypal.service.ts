@@ -1,6 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
+import { NotificationService } from 'src/app/shared/services/notification.service';
+import { Router } from '@angular/router';
+import { CartService } from '../../services/cart.service';
 
 declare var paypal: any;
 
@@ -8,7 +11,13 @@ declare var paypal: any;
   providedIn: 'root',
 })
 export class PayPalService {
-  constructor(private http: HttpClient, private zone: NgZone) {}
+  constructor(
+    private http: HttpClient,
+    private zone: NgZone,
+    public notificationService: NotificationService,
+    private router: Router,
+    public cartService: CartService
+  ) {}
 
   async loadPayPalScript(amount: number) {
     this.http
@@ -48,7 +57,7 @@ export class PayPalService {
                 })
                 .toPromise()
                 .then(() => {
-                  // Handle successful payment
+                  this.handleSuccessfulPayment();
                 })
                 .catch((error) => {
                   console.error('PayPal payment capture failed:', error);
@@ -61,5 +70,11 @@ export class PayPalService {
           .render('#paypal-button-container');
       }, 0);
     });
+  }
+
+  private handleSuccessfulPayment() {
+    this.cartService.clearCart();
+    this.notificationService.showNotification('Payment successful');
+    this.router.navigate(['/order-confirmation']);
   }
 }
