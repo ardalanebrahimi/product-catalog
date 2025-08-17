@@ -1,0 +1,91 @@
+name: Deploy Angular to GitHub Pages
+
+on:
+  push:
+    branches: [master] # or master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+env:
+  # --- CONFIGURE THESE TWO ---
+  REPO_NAME: product-catalog # e.g. rekindlique-site
+  USE_CUSTOM_DOMAIN: "true" # "true" if you point a domain to GH Pages
+  # Optional: when USE_CUSTOM_DOMAIN=true, set CNAME in repo "Settings > Pages"
+  # or set here as env and we’ll create the CNAME file during deploy:
+  CUSTOM_DOMAIN: "www.rekindlebysarah.com"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - run: npm ci
+
+      # Create environment.ts from a secret (add API_URL in repo Settings → Secrets → Actions)
+      - name: Generate environment.ts
+        run: |
+          mkdir -p environments
+          cat > environments/environment.ts <<'EOF'
+          export const environment = {
+            production: true,
+            apiUrl: '${{ secrets.API_URL }}'
+          };
+          EOF
+
+      # Build with proper base-href for GH Pages
+      - name: Build Angular
+        run: |
+          if [ "${{ env.USE_CUSTOM_DOMAIN }}" = "true" ]; then
+            BH="/"
+          else
+            BH="/${{ env.REPO_NAME }}/"
+          fi
+          echo "Using base-href: $BH"
+          npx ng build --configuration production --base-href "$BH"
+
+      # Figure out dist folder (adjust if your output path is known)
+      - name: Detect dist path
+        id: dist
+        run: |
+          DIST=$(ls -d dist/* | head -n 1)
+          echo "dist=$DIST" >> $GITHUB_OUTPUT
+          echo "Detected dist: $DIST"
+
+      # SPA fix: 404.html = index.html
+      - name: Add SPA 404 fallback
+        run: cp "${{ steps.dist.outputs.dist }}/index.html" "${{ steps.dist.outputs.dist }}/404.html"
+
+      # Optional: add CNAME if using a custom domain
+      - name: Add CNAME (optional)
+        if: env.USE_CUSTOM_DOMAIN == 'true' && env.CUSTOM_DOMAIN != ''
+        run: echo "${{ env.CUSTOM_DOMAIN }}" > "${{ steps.dist.outputs.dist }}/CNAME"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ steps.dist.outputs.dist }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
